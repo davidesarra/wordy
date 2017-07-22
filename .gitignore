@@ -1,0 +1,13 @@
+# editor
+.vscode
+
+# pyenv
+.python-version
+
+# pytest
+.pytest_cache
+
+# python
+*.pyc
+.cache
+__pycache__

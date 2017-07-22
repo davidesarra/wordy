@@ -1,0 +1,5 @@
+black==19.10b0
+flake8
+mypy
+pytest==3.4.0
+pytest-mock==1.6.3
