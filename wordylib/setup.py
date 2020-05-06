@@ -14,6 +14,7 @@ setup(
     name=NAME,
     version=VERSION,
     include_package_data=True,
+    package_data={"wordylib": ["data/*"]},
     packages=find_packages(exclude=["tests"]),
     install_requires=get_requirements(),
 )
