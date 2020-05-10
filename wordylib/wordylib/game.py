@@ -129,18 +129,8 @@ class Game:
                     "Davide": 0,
                 }
         """
-        scores = {player: 0 for player in self._players}
-        if round is None:
-            rounds_scores = self._rounds.values()
-        else:
-            try:
-                rounds_scores = [self._rounds[round]]
-            except KeyError as error:
-                raise ValueError(f"Round {round} has not been played yet") from error
-        for round_scores in rounds_scores:
-            for player, word_scores in round_scores.items():
-                scores[player] += sum(word_scores.values())
-        return scores
+        word_scores = self.get_word_scores(round=round)
+        return {player: sum(scores.values()) for player, scores in word_scores.items()}
 
     def _raise_if_the_game_has_not_started_yet(self) -> None:
         if not self._rounds:
