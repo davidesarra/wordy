@@ -18,7 +18,7 @@ def create_game():
 def get_game(game_id):
     try:
         games.get_game(game_id=game_id)
-        return jsonify({"game": {"id": game_id}})
+        return jsonify({"id": game_id})
     except KeyError:
         return abort(404)
 
@@ -28,7 +28,7 @@ def get_players(game_id):
     try:
         game = games.get_game(game_id=game_id)
         player_names = game.players
-        players = {"players": [{"name": player_name} for player_name in player_names]}
+        players = [{"name": player_name} for player_name in player_names]
         return jsonify(players)
     except KeyError:
         return abort(404)
@@ -54,7 +54,7 @@ def create_player(game_id):
 def get_player(game_id, player_id):
     try:
         player_name = games.get_player(game_id=game_id, player_id=player_id)
-        return jsonify({"player": {"id": player_id, "name": player_name}})
+        return jsonify({"id": player_id, "name": player_name})
     except KeyError:
         return abort(404)
 
