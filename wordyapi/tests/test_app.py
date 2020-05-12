@@ -10,7 +10,6 @@ def test_create_game(client):
 def test_get_game(client):
     # given
     response = client.post("/api/v1/games")
-    assert response.status_code == 200
     game_id = response.json["id"]
 
     # when
@@ -24,7 +23,6 @@ def test_get_game(client):
 def test_create_player(client):
     # given
     response = client.post("/api/v1/games")
-    assert response.status_code == 200
     game_id = response.json["id"]
     player_name = "Davide"
 
@@ -42,13 +40,11 @@ def test_create_player(client):
 def test_create_player_twice(client):
     # given
     response = client.post("/api/v1/games")
-    assert response.status_code == 200
     game_id = response.json["id"]
     player1_name = "Davide"
     response = client.post(
         f"/api/v1/games/{game_id}/players", json={"name": player1_name}
     )
-    assert response.status_code == 200
     player2_name = "Davide"
 
     # when
@@ -78,13 +74,11 @@ def test_create_player_with_invalid_game_id(client):
 def test_get_player(client):
     # given
     response = client.post("/api/v1/games")
-    assert response.status_code == 200
     game_id = response.json["id"]
     player_name = "Davide"
     response = client.post(
         f"/api/v1/games/{game_id}/players", json={"name": player_name}
     )
-    assert response.status_code == 200
     player_id = response.json["id"]
 
     # when
@@ -100,7 +94,6 @@ def test_get_player(client):
 def test_get_player_with_invalid_player_id(client):
     # given
     response = client.post("/api/v1/games")
-    assert response.status_code == 200
     game_id = response.json["id"]
     player_id = "invalid-player-id"
 
@@ -114,13 +107,11 @@ def test_get_player_with_invalid_player_id(client):
 def test_get_player_with_invalid_game_id(client):
     # given
     response = client.post("/api/v1/games")
-    assert response.status_code == 200
     game_id = response.json["id"]
     player_name = "Davide"
     response = client.post(
         f"/api/v1/games/{game_id}/players", json={"name": player_name}
     )
-    assert response.status_code == 200
     player_id = response.json["id"]
     invalid_game_id = "invalid-game-id"
 
@@ -134,18 +125,15 @@ def test_get_player_with_invalid_game_id(client):
 def test_get_players(client):
     # given
     response = client.post("/api/v1/games")
-    assert response.status_code == 200
     game_id = response.json["id"]
     player1_name = "Cherry"
     response = client.post(
         f"/api/v1/games/{game_id}/players", json={"name": player1_name}
     )
-    assert response.status_code == 200
     player2_name = "Davide"
     response = client.post(
         f"/api/v1/games/{game_id}/players", json={"name": player2_name}
     )
-    assert response.status_code == 200
 
     # when
     response = client.get(f"/api/v1/games/{game_id}/players")
