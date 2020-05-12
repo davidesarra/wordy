@@ -62,7 +62,7 @@ def test_create_player_twice(client):
 
     # then
     assert response.status_code == 400
-    assert response.json.keys() == {"description"}
+    assert response.json.keys() == {"message"}
 
 
 def test_create_player_with_invalid_game_id(client):

@@ -44,7 +44,7 @@ def create_player(game_id):
     except KeyError:
         return abort(404)
     except ValueError as error:
-        bad_response = jsonify({"description": str(error)})
+        bad_response = jsonify({"message": str(error)})
         bad_response.status_code = 400
         return bad_response
     return get_player(game_id=game_id, player_id=player_id)
