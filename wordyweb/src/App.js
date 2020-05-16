@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import StartGame from './components/startGame.component'
+import JoinGame from './components/joinGame.component'
 
 function App() {
   return (
-    <StartGame></StartGame>
+    <JoinGame></JoinGame>
   );
 }
 
