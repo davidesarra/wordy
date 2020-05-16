@@ -1,11 +1,13 @@
 #!flask/bin/python
 from flask import Flask, abort, jsonify, request
+from flask_cors import CORS
 
 from wordyapi import games
 
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
+CORS(app)
 
 
 @app.route("/api/v1/games", methods=["POST"])
