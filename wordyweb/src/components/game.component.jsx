@@ -6,7 +6,7 @@ export default class Game extends Component {
         players: []
     };
     componentDidMount(){
-        Axios.get("http://localhost:5000/api/v1/games/0/players")
+        Axios.get(`http://localhost:5000/api/v1/games/${this.props.location.state.gameId}/players`)
             .then(res => {
                 this.setState({players:res.data});
             });

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
 
@@ -9,31 +10,46 @@ export default class JoinGame extends Component {
             gameId: "",
             playerName: "",
             playerId: null,
+            redirectToGame: false
         };
         this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
         this.handleGameIdChange = this.handleGameIdChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.joinExistingGame = this.joinExistingGame.bind(this);
         this.joinNewGame = this.joinNewGame.bind(this);
-    };
+        this.joinGame = this.joinGame.bind(this);
+    } 
+
     joinNewGame() {
         axios.post(`http://localhost:5000/api/v1/games`)
             .then(res => {
                 this.setState({ gameId: res.data.id });
                 axios.post(`http://localhost:5000/api/v1/games/${this.state.gameId}/players`, { "name": this.state.playerName })
-                    .then(res => this.setState({ playerId: res.data.id }));
+                    .then(res => {
+                        this.joinGame(res)
+                    }).catch(res => console.log(res));
             });
-    };
+    }
+
     joinExistingGame() {
         axios.post(`http://localhost:5000/api/v1/games/${this.state.gameId}/players`, { "name": this.state.playerName })
-            .then(res => this.setState({ playerId: res.data.id }));
-    };
+            .then(res => {
+                this.joinGame(res);
+            });
+    }
+
+    joinGame(res) {
+        this.setState({ playerId: res.data.id, redirectToGame: true });
+    }
+
     handlePlayerNameChange(event) {
         this.setState({ playerName: event.target.value });
-    };
+    }
+
     handleGameIdChange(event) {
         this.setState({ gameId: event.target.value });
-    };
+    }
+
     handleSubmit(event) {
         if (!this.state.gameId) {
             this.joinNewGame();
@@ -41,8 +57,14 @@ export default class JoinGame extends Component {
             this.joinExistingGame();
         }
         event.preventDefault();
-    };
+    }
+     
     render() {
+        if(this.state.redirectToGame)
+            return <Redirect to={{
+                pathname: '/game',
+                state: { gameId: this.state.gameId }
+            }}/>
         return (
             <React.Fragment>
                 <h1>WORDY</h1>
@@ -66,5 +88,5 @@ export default class JoinGame extends Component {
                 </form>
             </React.Fragment>
         );
-    };
-};
+    }
+}
