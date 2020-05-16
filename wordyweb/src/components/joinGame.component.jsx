@@ -45,18 +45,23 @@ export default class JoinGame extends Component {
     render() {
         return (
             <React.Fragment>
-                WORDY!
+                <h1>WORDY</h1>
                 To join a new a game, leave the Game ID field empty.
+                <br></br>
                 To join an existing game, paste the Game ID that was shared with you.
+                <br></br>
+                <br></br>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Name
+                        Name:
                     <textarea value={this.state.playerName} onChange={this.handlePlayerNameChange} />
                     </label>
+                    <br></br>
                     <label>
-                        Game ID
+                        Game ID:
                     <textarea value={this.state.gameId} onChange={this.handleGameIdChange} />
                     </label>
+                    <br></br>
                     <input type="submit" value="Join" />
                 </form>
             </React.Fragment>
