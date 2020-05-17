@@ -12,3 +12,32 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.tile-container {
+  flex-direction: row;
+  
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.letter-tile {
+  margin: 1em;
+  height: 3em;
+  width: 3em;
+  background-color: rgb(229, 213, 157);
+  border-radius: 0.8rem;
+  border-color: #282c34;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 3em;
+  font-weight: bold;
+}
+
+.letter-tile:hover {
+  background-color: rgb(235, 201, 81);
+}

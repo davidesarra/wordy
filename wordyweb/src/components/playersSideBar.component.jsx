@@ -13,6 +13,7 @@ export default class Game extends Component {
         const players = this.createPlayersListElement();
         return (
             <div className="playersSideBar">
+                Players:
                 {players}
             </div>
         );

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import PlayersSideBar from './playersSideBar.component'
 import Axios from 'axios';
+import PlayersSideBar from './playersSideBar.component'
+import LetterTiles from './letterTiles.component'
+
 export default class Game extends Component {
     state = {
         players: []
@@ -14,6 +16,7 @@ export default class Game extends Component {
     render(){
         return (
             <React.Fragment>
+                <LetterTiles></LetterTiles>
                 <PlayersSideBar players={this.state.players}> </PlayersSideBar>
             </React.Fragment>
         );
