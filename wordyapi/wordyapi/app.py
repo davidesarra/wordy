@@ -61,5 +61,23 @@ def get_player(game_id, player_id):
         return abort(404)
 
 
+@app.route("/api/v1/games/<string:game_id>/draw", methods=["POST"])
+def create_draw(game_id):
+    try:
+        game = games.get_game(game_id=game_id)
+        return jsonify(game.draw())
+    except KeyError:
+        return abort(404)
+
+
+@app.route("/api/v1/games/<string:game_id>/draw", methods=["GET"])
+def get_draw(game_id):
+    try:
+        game = games.get_game(game_id=game_id)
+        return jsonify(game.current_draw)
+    except KeyError:
+        return abort(404)
+
+
 if __name__ == "__main__":
     app.run()
