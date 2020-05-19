@@ -1,20 +1,17 @@
 import React, { Component } from "react";
 
-export default class Game extends Component {
+export default class PlayersSideBar extends Component {
     createPlayersListElement() {
         if (this.props.players.length > 0){
-            console.log(this.props.players)
-            let p = this.props.players
-            return p.map(player => <li key={player.name}>{player.name}</li>);
+            let players = this.props.players;
+            return players.map(player => <li key={player.name}>{player.name}</li>);
         }
     }
     render() {
-        console.log(this.props)
-        const players = this.createPlayersListElement();
         return (
-            <div className="playersSideBar">
+            <div className="players-sideBar">
                 Players:
-                {players}
+                {this.createPlayersListElement()}
             </div>
         );
     }
