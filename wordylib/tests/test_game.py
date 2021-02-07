@@ -99,6 +99,39 @@ def test_game_draw():
     assert result == expected
 
 
+def test_game_current_draw():
+    # given
+    random.seed(100)
+
+    # when
+    game = Game()
+    game.add_player(player="Davide")
+    game.draw()
+    result = game.current_draw
+
+    # then
+    expected = {
+        "D": {"count": 1, "points": 1},
+        "I": {"count": 3, "points": 1},
+        "S": {"count": 2, "points": 1},
+        "R": {"count": 2, "points": 1},
+        "M": {"count": 1, "points": 1},
+        "A": {"count": 2, "points": 1},
+        "U": {"count": 1, "points": 1},
+    }
+    assert result == expected
+
+
+def test_game_current_draw_before_starting_playing():
+    # given
+
+    # when and then
+    game = Game()
+    expected_msg = "^Game has not started yet, draw first$"
+    with pytest.raises(errors.WordylibError, match=expected_msg):
+        game.current_draw
+
+
 def test_game_current_round_before_starting_playing():
     # given
 

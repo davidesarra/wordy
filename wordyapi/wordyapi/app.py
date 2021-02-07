@@ -1,11 +1,13 @@
 #!flask/bin/python
 from flask import Flask, abort, jsonify, request
+from flask_cors import CORS
 
 from wordyapi import games
 
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
+CORS(app)
 
 
 @app.route("/api/v1/games", methods=["POST"])
@@ -55,6 +57,24 @@ def get_player(game_id, player_id):
     try:
         player_name = games.get_player(game_id=game_id, player_id=player_id)
         return jsonify({"id": player_id, "name": player_name})
+    except KeyError:
+        return abort(404)
+
+
+@app.route("/api/v1/games/<string:game_id>/draw", methods=["POST"])
+def create_draw(game_id):
+    try:
+        game = games.get_game(game_id=game_id)
+        return jsonify(game.draw())
+    except KeyError:
+        return abort(404)
+
+
+@app.route("/api/v1/games/<string:game_id>/draw", methods=["GET"])
+def get_draw(game_id):
+    try:
+        game = games.get_game(game_id=game_id)
+        return jsonify(game.current_draw)
     except KeyError:
         return abort(404)
 

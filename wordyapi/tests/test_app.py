@@ -157,3 +157,67 @@ def test_get_players_with_invalid_game_id(client):
 
     # then
     assert response.status_code == 404
+
+
+def test_create_draw(client):
+    # given
+    response = client.post("/api/v1/games")
+    game_id = response.json["id"]
+    player_name = "Davide"
+    client.post(f"/api/v1/games/{game_id}/players", json={"name": player_name})
+
+    # when
+    response = client.post(f"/api/v1/games/{game_id}/draw")
+
+    # then
+    assert response.status_code == 200
+    for letter_data in response.json.values():
+        assert letter_data.keys() == {"count", "points"}
+
+
+def test_create_draw_with_invalid_game_id(client):
+    # given
+    response = client.post("/api/v1/games")
+    game_id = response.json["id"]
+    player_name = "Davide"
+    client.post(f"/api/v1/games/{game_id}/players", json={"name": player_name})
+    invalid_game_id = "invalid-game-id"
+
+    # when
+    response = client.post(f"/api/v1/games/{invalid_game_id}/draw")
+
+    # then
+    assert response.status_code == 404
+
+
+def test_get_draw(client):
+    # given
+    response = client.post("/api/v1/games")
+    game_id = response.json["id"]
+    player_name = "Davide"
+    client.post(f"/api/v1/games/{game_id}/players", json={"name": player_name})
+    client.post(f"/api/v1/games/{game_id}/draw")
+
+    # when
+    response = client.get(f"/api/v1/games/{game_id}/draw")
+
+    # then
+    assert response.status_code == 200
+    for letter_data in response.json.values():
+        assert letter_data.keys() == {"count", "points"}
+
+
+def test_get_draw_with_invalid_game_id(client):
+    # given
+    response = client.post("/api/v1/games")
+    game_id = response.json["id"]
+    player_name = "Davide"
+    client.post(f"/api/v1/games/{game_id}/players", json={"name": player_name})
+    client.post(f"/api/v1/games/{game_id}/draw")
+    invalid_game_id = "invalid-game-id"
+
+    # when
+    response = client.get(f"/api/v1/games/{invalid_game_id}/draw")
+
+    # then
+    assert response.status_code == 404

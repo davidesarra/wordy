@@ -30,6 +30,11 @@ class Game:
         self._raise_if_the_game_has_not_started_yet()
         return len(self._rounds)
 
+    @property
+    def current_draw(self):
+        self._raise_if_the_game_has_not_started_yet()
+        return self._current_draw
+
     def draw(self) -> Dict[str, Dict[str, int]]:
         """Draw letters and start new round."""
         if not self._players:

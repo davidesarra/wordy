@@ -17,6 +17,6 @@ setup(
     packages=find_packages(exclude=["tests"]),
     install_requires=get_requirements(),
     dependency_links=[
-        "https://github.com/davidesarra/wordy.git@70c1a49e2553b959105f2ba93f9c0b5b3761f24c#subdirectory=wordylib"
+        "https://github.com/davidesarra/wordy.git@732c1a839ec49b56c8b55b9021a7fe811b4aa740#subdirectory=wordylib"
     ],
 )
